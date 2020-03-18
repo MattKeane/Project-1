@@ -65,6 +65,8 @@ class Player {
 const game = {
 	tiles: [],
 
+	keysPressed: {},
+
 	players: [new Player(40, 40, "blue"), new Player(300, 40, "red")],
 
 	drawBoard: function () {
@@ -83,22 +85,22 @@ const game = {
 		}
 	},
 
-	move: function(key) {
-		if (key === "a") {
+	move: function() {
+		if (this.keysPressed.a) {
 			this.players[0].move("left")
-		} else if (key === "s") {
+		} if (this.keysPressed.s) {
 			this.players[0].move("down")
-		} else if (key === "d") {
+		} if (this.keysPressed.d) {
 			this.players[0].move("right")
-		} else if (key === "w") {
+		} if (this.keysPressed.w) {
 			this.players[0].move("up")
-		} else if (key === "j") {
+		} if (this.keysPressed.j) {
 			this.players[1].move("left")
-		} else if (key === "k") {
+		} if (this.keysPressed.k) {
 			this.players[1].move("down")
-		} else if (key === "l") {
+		} if (this.keysPressed.l) {
 			this.players[1].move("right") 
-		} else if (key === "i") {
+		} if (this.keysPressed.i) {
 			this.players[1].move("up")
 		}
 		this.clearBoard()
@@ -127,5 +129,10 @@ const player2 = new Player(300, 40, "red")
 player2.draw()
 
 $( document ).on("keydown", (event) => {
-	game.move(event.key)
+	game.keysPressed[event.key] = true
+	game.move()
+})
+
+$( document ).on("keyup", (event) => {
+	delete game.keysPressed[event.key]
 })
