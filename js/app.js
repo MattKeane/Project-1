@@ -95,6 +95,8 @@ const game = {
 				player1.move("up")
 				break
 		}
+		this.clearBoard()
+		this.drawBoard()
 		player1.draw()
 	}
 }
