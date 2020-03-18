@@ -44,6 +44,10 @@ const game = {
 		for (let i = 0; i < this.tiles.length; i++) {
 			this.tiles[i].draw()
 		}
+	},
+
+	clearBoard: function () {
+		ctx.clearRect(0, 0, board.width, board.height)
 	}
 }
 
