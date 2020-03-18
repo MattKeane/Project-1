@@ -112,6 +112,9 @@ game.drawBoard()
 const player1 = new Player(40, 40, "blue")
 player1.draw()
 
+const player2 = new Player(300, 40, "red")
+player2.draw()
+
 $( document ).on("keydown", (event) => {
 	game.move(event.key)
 })
