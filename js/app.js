@@ -65,6 +65,8 @@ class Player {
 const game = {
 	tiles: [],
 
+	players: [new Player(40, 40, "blue"), new Player(300, 40, "red")],
+
 	drawBoard: function () {
 		for (let i = 0; i < this.tiles.length; i++) {
 			this.tiles[i].draw()
@@ -75,42 +77,33 @@ const game = {
 		ctx.clearRect(0, 0, board.width, board.height)
 	},
 
+	drawPlayers: function () {
+		for (let i = 0; i < this.players.length; i++) {
+			this.players[i].draw()
+		}
+	},
+
 	move: function(key) {
 		if (key === "a") {
-			player1.move("left")
+			this.players[0].move("left")
 		} else if (key === "s") {
-			player1.move("down")
+			this.players[0].move("down")
 		} else if (key === "d") {
-			player1.move("right")
+			this.players[0].move("right")
 		} else if (key === "w") {
-			player1.move("up")
+			this.players[0].move("up")
 		} else if (key === "j") {
-			player2.move("left")
+			this.players[1].move("left")
 		} else if (key === "k") {
-			player2.move("down")
+			this.players[1].move("down")
 		} else if (key === "l") {
-			player2.move("right") 
+			this.players[1].move("right") 
 		} else if (key === "i") {
-			player2.move("up")
+			this.players[1].move("up")
 		}
-		// switch (key) {
-		// 	case "a":
-		// 		player1.move("left")
-		// 		break
-		// 	case "s":
-		// 		player1.move("down")
-		// 		break
-		// 	case "d":
-		// 		player1.move("right")
-		// 		break
-		// 	case "w":
-		// 		player1.move("up")
-		// 		break
-		// }
 		this.clearBoard()
 		this.drawBoard()
-		player1.draw()
-		player2.draw()
+		this.drawPlayers()
 	}
 }
 
