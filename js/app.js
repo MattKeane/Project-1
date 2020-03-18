@@ -37,6 +37,20 @@ class Wall extends Tile {
 	}
 }
 
+class Player {
+	constructor(x, y, color) {
+		this.x = x
+		this.y = y
+		this.color = color
+	}
+	draw () {
+		ctx.beginPath()
+		ctx.arc(this.x, this.y, 30, 0, Math.PI * 2)
+		ctx.fillStyle = this.color
+		ctx.fill()
+	}
+}
+
 const game = {
 	tiles: [],
 
@@ -63,3 +77,6 @@ for (let i = 0; i < 4; i++) {
 }
 
 game.drawBoard()
+
+const player1 = new Player(40, 40, "blue")
+player1.draw()
