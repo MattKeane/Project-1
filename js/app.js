@@ -49,6 +49,22 @@ class Player {
 		ctx.fillStyle = this.color
 		ctx.fill()
 	}
+	move (direction) {
+		switch (direction) {
+			case "left":
+				this.x -= 5
+				break
+			case "right":
+				this.x += 5
+				break
+			case "down":
+				this.y += 5
+				break
+			case "up":
+				this.y -= 5
+				break
+		}
+	}
 }
 
 const game = {
@@ -62,6 +78,24 @@ const game = {
 
 	clearBoard: function () {
 		ctx.clearRect(0, 0, board.width, board.height)
+	},
+
+	move: function(key) {
+		switch (key) {
+			case "a":
+				player1.move("left")
+				break
+			case "s":
+				player1.move("down")
+				break
+			case "d":
+				player1.move("right")
+				break
+			case "w":
+				player1.move("up")
+				break
+		}
+		player1.draw()
 	}
 }
 
@@ -80,3 +114,7 @@ game.drawBoard()
 
 const player1 = new Player(40, 40, "blue")
 player1.draw()
+
+$( document ).on("keydown", (event) => {
+	game.move(event.key)
+})
