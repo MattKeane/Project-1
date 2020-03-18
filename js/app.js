@@ -38,14 +38,15 @@ class Wall extends Tile {
 }
 
 class Player {
-	constructor(x, y, color) {
+	constructor(x, y, radius, color) {
 		this.x = x
 		this.y = y
 		this.color = color
+		this.radius = radius
 	}
 	draw() {
 		ctx.beginPath()
-		ctx.arc(this.x, this.y, 30, 0, Math.PI * 2)
+		ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2)
 		ctx.fillStyle = this.color
 		ctx.fill()
 	}
@@ -59,6 +60,20 @@ class Player {
 		} else if (direction === "up" && this.y - 34 >= 0) {
 			this.y -= 5
 		}
+		this.checkCollision()
+	}
+	checkCollision() {
+		for (let i = 0; i < game.tiles.length; i++) {
+			if (!game.tiles[i].passable) {
+				// testing the right side
+				if (this.x + this.radius >= game.tiles[i].x * 75 &&
+					this.x + this.radius <= game.tiles[i].x * 75 + 75 &&
+					this.y >= game.tiles[i].y * 75 &&
+					this.y <= game.tiles[i].y * 75 + 75) {
+					console.log("COLLISION")
+				}
+			}
+		}
 	}
 }
 
@@ -67,7 +82,7 @@ const game = {
 
 	keysPressed: {},
 
-	players: [new Player(40, 40, "blue"), new Player(300, 40, "red")],
+	players: [new Player(40, 40, 30, "blue"), new Player(300, 40, 30, "red")],
 
 	drawBoard: function () {
 		for (let i = 0; i < this.tiles.length; i++) {
