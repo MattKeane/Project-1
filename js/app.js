@@ -76,23 +76,41 @@ const game = {
 	},
 
 	move: function(key) {
-		switch (key) {
-			case "a":
-				player1.move("left")
-				break
-			case "s":
-				player1.move("down")
-				break
-			case "d":
-				player1.move("right")
-				break
-			case "w":
-				player1.move("up")
-				break
+		if (key === "a") {
+			player1.move("left")
+		} else if (key === "s") {
+			player1.move("down")
+		} else if (key === "d") {
+			player1.move("right")
+		} else if (key === "w") {
+			player1.move("up")
+		} else if (key === "j") {
+			player2.move("left")
+		} else if (key === "k") {
+			player2.move("down")
+		} else if (key === "l") {
+			player2.move("right") 
+		} else if (key === "i") {
+			player2.move("up")
 		}
+		// switch (key) {
+		// 	case "a":
+		// 		player1.move("left")
+		// 		break
+		// 	case "s":
+		// 		player1.move("down")
+		// 		break
+		// 	case "d":
+		// 		player1.move("right")
+		// 		break
+		// 	case "w":
+		// 		player1.move("up")
+		// 		break
+		// }
 		this.clearBoard()
 		this.drawBoard()
 		player1.draw()
+		player2.draw()
 	}
 }
 
