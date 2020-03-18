@@ -37,7 +37,25 @@ class Wall extends Tile {
 	}
 }
 
-const tile1 = new Floor(0, 0)
-const tile2 = new Floor(3, 4)
-const tile3 = new Floor(0, 1)
-const tile4 = new Wall(1, 0)
+const game = {
+	tiles: [],
+
+	drawBoard: function () {
+		for (let i = 0; i < this.tiles.length; i++) {
+			this.tiles[i].draw()
+		}
+	}
+}
+
+
+for (let i = 0; i < 3; i++) {
+	for (let j = 0; j < 12; j++) {
+		game.tiles.push(new Floor(j, i * 2))
+	}
+	for (let j = 0; j < 11; j++) {
+		game.tiles.push(new Wall(j, i * 2 + 1))
+	}
+	game.tiles.push(new Floor(11, i * 2 + 1))
+}
+
+game.drawBoard()
