@@ -43,26 +43,21 @@ class Player {
 		this.y = y
 		this.color = color
 	}
-	draw () {
+	draw() {
 		ctx.beginPath()
 		ctx.arc(this.x, this.y, 30, 0, Math.PI * 2)
 		ctx.fillStyle = this.color
 		ctx.fill()
 	}
-	move (direction) {
-		switch (direction) {
-			case "left":
-				this.x -= 5
-				break
-			case "right":
-				this.x += 5
-				break
-			case "down":
-				this.y += 5
-				break
-			case "up":
-				this.y -= 5
-				break
+	move(direction) {
+		if (direction === "left" && this.x - 34 >= 0) {
+			this.x -= 5
+		} else if (direction === "right" && this.x + 34 <= board.width) {
+			this.x += 5
+		} else if (direction === "down" && this.y + 34 <= board.height) {
+			this.y += 5
+		} else if (direction === "up" && this.y - 34 >= 0) {
+			this.y -= 5
 		}
 	}
 }
