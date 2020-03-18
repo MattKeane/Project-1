@@ -66,12 +66,19 @@ class Player {
 		for (let i = 0; i < game.tiles.length; i++) {
 			if (!game.tiles[i].passable) {
 				// testing the right side
-				if (this.x + this.radius >= game.tiles[i].x * 75 &&
+				if ((this.x + this.radius >= game.tiles[i].x * 75 &&
 					this.x + this.radius <= game.tiles[i].x * 75 + 75 &&
 					this.y >= game.tiles[i].y * 75 &&
-					this.y <= game.tiles[i].y * 75 + 75) {
-					console.log("COLLISION")
+					this.y <= game.tiles[i].y * 75 + 75) ||
+					// testing the left side
+					(this.x - this.radius >= game.tiles[i].x * 75 &&
+					this.x - this.radius <= game.tiles[i].x * 75 + 75 &&
+					this.y >= game.tiles[i].y * 75 &&
+					this.y <= game.tiles[i].y * 75 + 75)) {
+				console.log("COLLISION!")	
 				}
+			
+				
 			}
 		}
 	}
