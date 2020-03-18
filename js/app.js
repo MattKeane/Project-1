@@ -79,13 +79,17 @@ class Player {
 					(this.y + this.radius >= game.tiles[i].y * 75 &&
 					this.y + this.radius <= game.tiles[i].y * 75 + 75 &&
 					this.x >= game.tiles[i].x * 75 &&
+					this.x <= game.tiles[i].x * 75 + 75) ||
+					// testing the top
+					(this.y - this.radius >= game.tiles[i].y * 75 &&
+					this.y - this.radius <= game.tiles[i].y * 75 + 75 &&
+					this.x >= game.tiles[i].x * 75 &&
 					this.x <= game.tiles[i].x * 75 + 75)) {
-					console.log("COLLISION")
-				}
-			
-				
+					return true
+				}			
 			}
 		}
+		return false
 	}
 }
 
