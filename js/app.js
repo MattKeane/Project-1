@@ -15,7 +15,7 @@ class Floor extends Tile {
 	}
 	draw() {
 		ctx.beginPath()
-		ctx.rect(this.x * 100, this.y * 100, 100, 100)
+		ctx.rect(this.x * 75, this.y * 75, 75, 75)
 		ctx.fillStyle = "rgb(200, 200, 200)"
 		ctx.fill()
 	}
@@ -27,10 +27,10 @@ class Wall extends Tile {
 	}
 	draw () {
 		ctx.beginPath()
-		ctx.rect(this.x * 100, this.y * 100, 100, 100)
+		ctx.rect(this.x * 75, this.y * 75, 75, 75)
 		ctx.fillStyle = "rgb(100, 100, 100)"
 		ctx.fill()
-		ctx.rect(this.x * 100, this.y * 100, 100, 100)
+		ctx.rect(this.x * 75, this.y * 75, 75, 75)
 		ctx.lineWidth = 1
 		ctx.strokeStyle = "black"
 		ctx.stroke()
@@ -52,14 +52,14 @@ const game = {
 }
 
 
-for (let i = 0; i < 3; i++) {
-	for (let j = 0; j < 10; j++) {
+for (let i = 0; i < 4; i++) {
+	for (let j = 0; j < 12; j++) {
 		game.tiles.push(new Floor(j, i * 2))
 	}
-	for (let j = 0; j < 9; j++) {
+	for (let j = 0; j < 11; j++) {
 		game.tiles.push(new Wall(j, i * 2 + 1))
 	}
-	game.tiles.push(new Floor(9, i * 2 + 1))
+	game.tiles.push(new Floor(11, i * 2 + 1))
 }
 
 game.drawBoard()
