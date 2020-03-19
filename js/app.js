@@ -55,8 +55,13 @@ class Player {
 			this.x -= 5
 		} else if (direction === "right" && this.x + 34 <= board.width) {
 			this.x += 5
-		} else if (direction === "down" && this.y + 34 <= board.height) {
-			this.y += 5
+		} else if (direction === "down" && 
+			this.y + 34 <= board.height && 
+			!(this.y + this.radius >= game.tiles[i].y * 75 &&
+				this.y + this.radius <= game.tiles[i].y * 75 + 75 &&
+				this.x >= game.tiles[i].x * 75 &&
+				this.x <= game.tiles[i].x * 75 + 75)) {
+					this.y += 5
 		} else if (direction === "up" && this.y - 34 >= 0) {
 			this.y -= 5
 		}
