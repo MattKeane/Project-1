@@ -3,8 +3,8 @@ const ctx = board.getContext("2d")
 
 class Tile {
 	constructor(x, y, passable) {
-		this.x = x
-		this.y = y
+		this.x = x * 75
+		this.y = y * 75
 		this.passable = passable
 	}
 }
@@ -15,7 +15,7 @@ class Floor extends Tile {
 	}
 	draw() {
 		ctx.beginPath()
-		ctx.rect(this.x * 75, this.y * 75, 75, 75)
+		ctx.rect(this.x, this.y, 75, 75)
 		ctx.fillStyle = "rgb(200, 200, 200)"
 		ctx.fill()
 	}
@@ -27,10 +27,10 @@ class Wall extends Tile {
 	}
 	draw () {
 		ctx.beginPath()
-		ctx.rect(this.x * 75, this.y * 75, 75, 75)
+		ctx.rect(this.x, this.y, 75, 75)
 		ctx.fillStyle = "rgb(100, 100, 100)"
 		ctx.fill()
-		ctx.rect(this.x * 75, this.y * 75, 75, 75)
+		ctx.rect(this.x, this.y * 75, 75, 75)
 		ctx.lineWidth = 1
 		ctx.strokeStyle = "black"
 		ctx.stroke()
@@ -97,34 +97,8 @@ class Player {
 		this.updateCorners()
 		this.checkCollision()
 	}
-	checkCollision() {
-		for (let i = 0; i < game.tiles.length; i++) {
-			if (!game.tiles[i].passable) {
-				// testing the right side
-				if ((this.x + this.width >= game.tiles[i].x * 75 &&
-					this.x + this.width <= game.tiles[i].x * 75 + 75 &&
-					this.y >= game.tiles[i].y * 75 &&
-					this.y <= game.tiles[i].y * 75 + 75) ||
-					// testing the left side
-					(this.x - this.width >= game.tiles[i].x * 75 &&
-					this.x - this.radius <= game.tiles[i].x * 75 + 75 &&
-					this.y >= game.tiles[i].y * 75 &&
-					this.y <= game.tiles[i].y * 75 + 75) ||
-					// testing the bottom
-					(this.y + this.radius >= game.tiles[i].y * 75 &&
-					this.y + this.radius <= game.tiles[i].y * 75 + 75 &&
-					this.x >= game.tiles[i].x * 75 &&
-					this.x <= game.tiles[i].x * 75 + 75) ||
-					// testing the top
-					(this.y - this.radius >= game.tiles[i].y * 75 &&
-					this.y - this.radius <= game.tiles[i].y * 75 + 75 &&
-					this.x >= game.tiles[i].x * 75 &&
-					this.x <= game.tiles[i].x * 75 + 75)) {
-					return true
-				}			
-			}
-		}
-		return false
+	checkCollision(direction) {
+		
 	}
 }
 
