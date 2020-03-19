@@ -55,6 +55,7 @@ class Wall extends Tile {
 
 class Player {
 	constructor(x, y, width, color) {
+		this.passable = false
 		this.x = x
 		this.y = y
 		this.color = color
@@ -117,9 +118,9 @@ class Player {
 
 	checkCollision(direction) {
 		// for all tiles on the board
-		for (let i = 0; i < game.tiles.length; i++) {
+		for (let i = 0; i < game.gameObjects.length; i++) {
 			// if the tile is impassable
-			const currentTile = game.tiles[i]
+			const currentTile = game.gameObjects[i]
 			if (!currentTile.passable) {
 				// if the direction is down
 				if (direction === "down") {
@@ -199,6 +200,8 @@ class Player {
 const game = {
 	tiles: [],
 
+	gameObjects: [],
+
 	keysPressed: {},
 
 	players: [new Player(0, 0, 65, "blue"), new Player(830, 530, 65, "red")],
@@ -273,11 +276,14 @@ for (let i = 0; i < 4; i++) {
 
 game.drawBoard()
 
-const player1 = new Player(40, 40, "blue")
-player1.draw()
+for (let i = 0; i < game.tiles.length; i++) {
+	game.gameObjects.push(game.tiles[i])
+}
 
-const player2 = new Player(300, 40, "red")
-player2.draw()
+for (let i = 0; i < game.players.length; i++) {
+	game.gameObjects.push(game.players[i])
+}
+
 
 $( document ).on("keydown", (event) => {
 	game.keysPressed[event.key] = true
