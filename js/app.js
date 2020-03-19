@@ -2,7 +2,7 @@ const board = document.querySelector("#board")
 const ctx = board.getContext("2d")
 
 class Tile {
-	constructor(x, y, passable) {
+	constructor(x, y, passable, goal) {
 		this.x = x * 75
 		this.y = y * 75
 		this.passable = passable
@@ -22,12 +22,13 @@ class Tile {
 			"x": this.x + 75,
 			"y": this.y + 75
 		}
+		this.goal = goal
 	}
 }
 
 class Floor extends Tile {
 	constructor(x, y) {
-		super(x, y, true)
+		super(x, y, true, false)
 	}
 	draw() {
 		ctx.beginPath()
@@ -38,8 +39,8 @@ class Floor extends Tile {
 }
 
 class Wall extends Tile {
-	constructor(x,y) {
-		super(x, y, false)
+	constructor(x, y) {
+		super(x, y, false, false)
 	}
 	draw () {
 		ctx.beginPath()
@@ -50,6 +51,18 @@ class Wall extends Tile {
 		ctx.lineWidth = 1
 		ctx.strokeStyle = "black"
 		ctx.stroke()
+	}
+}
+
+class Goal extends Tile {
+	constructor(x, y) {
+		super(x, y, true, true)
+	}
+	draw() {
+		ctx.beginPath()
+		ctx.rect(this.x, this.y, 75, 75)
+		ctx.fillStyle = "gold"
+		ctx.fill()
 	}
 }
 
@@ -262,8 +275,16 @@ const game = {
 	}
 }
 
-
-for (let i = 0; i < 4; i++) {
+for (let i = 0; i < 11; i++) {
+		game.tiles.push(new Floor(i, 0))
+}
+game.tiles.push(new Goal(11, 0))
+game.tiles.push(new Floor(0, 1))
+for (let i = 1; i < 11; i++) {
+	game.tiles.push(new Wall(i, 1))
+}
+	game.tiles.push(new Floor(11, 1))
+for (let i = 1; i < 3; i++) {
 	for (let j = 0; j < 12; j++) {
 		game.tiles.push(new Floor(j, i * 2))
 	}
@@ -273,6 +294,14 @@ for (let i = 0; i < 4; i++) {
 	}
 	game.tiles.push(new Floor(11, i * 2 + 1))
 }
+for (let i = 0; i < 12; i++) {
+	game.tiles.push(new Floor(i, 6))
+}
+game.tiles.push(new Goal(0, 7))
+for (let i = 1; i < 11; i++) {
+	game.tiles.push(new Wall(i, 7))
+}
+game.tiles.push(new Floor(11, 7))
 
 game.drawBoard()
 
