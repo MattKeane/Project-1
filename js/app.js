@@ -296,6 +296,13 @@ const game = {
 		this.clearBoard()
 		this.drawBoard()
 		this.drawPlayers()
+		this.checkForWin()
+	},
+
+	checkForWin: function() {
+		if (this.players[0].onGoal() && this.players[1].onGoal()) {
+			console.log("YOU WIN")
+		}
 	}
 }
 
