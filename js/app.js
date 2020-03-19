@@ -6,6 +6,22 @@ class Tile {
 		this.x = x * 75
 		this.y = y * 75
 		this.passable = passable
+		this.tlCorner = {
+			"x": this.x,
+			"y": this.y
+		}
+		this.trCorner = {
+			"x": this.x + 75,
+			"y": this.y
+		}
+		this.blCorner = {
+			"x": this.x,
+			"y": this.y + 75
+		}
+		this.brCorner = {
+			"x": this.x + 75,
+			"y": this.y + 75
+		}
 	}
 }
 
