@@ -207,6 +207,19 @@ class Player {
 			}
 		}
 	}
+
+	isInside(tile) {
+		const corners = [this.tlCorner, this.trCorner, this.blCorner, this.brCorner]
+		for (let i = 0; i < corners.length; i++) {
+			if (!((corners[i].x < tile.trCorner.x) &&
+				(corners[i].x > tile.tlCorner.x) &&
+				(corners[i].y < tile.brCorner.y) &&
+				(corners[i].y > tile.trCorner.y))) {
+					return false
+			}
+			return true
+		}
+	}
 }
 
 
@@ -278,7 +291,9 @@ const game = {
 for (let i = 0; i < 11; i++) {
 		game.tiles.push(new Floor(i, 0))
 }
-game.tiles.push(new Goal(11, 0))
+
+const goal1 = new Goal(11,0)
+game.tiles.push(goal1)
 game.tiles.push(new Floor(0, 1))
 for (let i = 1; i < 11; i++) {
 	game.tiles.push(new Wall(i, 1))
