@@ -146,12 +146,12 @@ class Player {
 					// AND the top of the player is less than 5 pixels below the bottom of the tile
 					(this.tlCorner.y - 1 < currentTile.blCorner.y)) {
 						// if the tlCorner of the player's x is between the corners of the top corners of the tile
-						if (((this.tlCorner.x >= currentTile.blCorner.x) &&
-							(this.tlCorner.x <= currentTile.brCorner.x)) ||
+						if (((this.tlCorner.x > currentTile.blCorner.x) &&
+							(this.tlCorner.x < currentTile.brCorner.x)) ||
 						// OR the trCorner " " " " " " " " " "
 							// COLLISION (return true)
-							((this.trCorner.x >= currentTile.blCorner.x) &&
-							(this.trCorner.x <= currentTile.brCorner.x))) {
+							((this.trCorner.x > currentTile.blCorner.x) &&
+							(this.trCorner.x < currentTile.brCorner.x))) {
 							console.log("COLLISION")
 							return true
 						}
@@ -159,16 +159,16 @@ class Player {
 				}
 				if (direction === "left") {
 					// if the left of the player is right of the right of the tile
-					if ((this.tlCorner.x >= currentTile.trCorner.x) &&
+					if ((this.tlCorner.x > currentTile.trCorner.x) &&
 					// AND the left of the player is less than 5 pixels to the right of the tile
 					(this.tlCorner.x - 1 < currentTile.trCorner.x)) {
 						// if the tlCorner of the player's y is between the right corners of the tile
-						if (((this.tlCorner.y >= currentTile.trCorner.y) &&
-							(this.tlCorner.y <= currentTile.brCorner.y)) ||
+						if (((this.tlCorner.y > currentTile.trCorner.y) &&
+							(this.tlCorner.y < currentTile.brCorner.y)) ||
 						// OR the blCorner " " " " " " " " " "
 							// COLLISION (return true)
-							((this.blCorner.y >= currentTile.trCorner.y) &&
-							(this.blCorner.y <= currentTile.brCorner.y))) {
+							((this.blCorner.y > currentTile.trCorner.y) &&
+							(this.blCorner.y < currentTile.brCorner.y))) {
 							console.log("COLLISION")
 							return true
 						}
@@ -180,12 +180,12 @@ class Player {
 					// AND the right of the player is less than 5 pixels to the left of the tile
 					(this.trCorner.x + 1 > currentTile.tlCorner.x)) {
 						// if the trCorner of the player's y is between the left corners of the tile
-						if (((this.trCorner.y >= currentTile.tlCorner.y) &&
-							(this.trCorner.y <= currentTile.blCorner.y)) ||
+						if (((this.trCorner.y > currentTile.tlCorner.y) &&
+							(this.trCorner.y < currentTile.blCorner.y)) ||
 						// OR the brCorner " " " " " " " " " "
 							// COLLISION (return true)
-							((this.brCorner.y >= currentTile.tlCorner.y) &&
-							(this.brCorner.y <= currentTile.blCorner.y))) {
+							((this.brCorner.y > currentTile.tlCorner.y) &&
+							(this.brCorner.y < currentTile.blCorner.y))) {
 							console.log("COLLISION")
 							return true
 						}
