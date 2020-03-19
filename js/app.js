@@ -220,6 +220,17 @@ class Player {
 			return true
 		}
 	}
+
+	onGoal() {
+		for (let i = 0; i < game.tiles.length; i++) {
+			if (game.tiles[i].goal) {
+				if (this.isInside(game.tiles[i])) {
+					return true
+				}
+			}
+		}
+		return false
+	}
 }
 
 
