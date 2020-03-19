@@ -101,17 +101,21 @@ class Player {
 		ctx.fill()
 	}
 	move(direction) {
-		if (direction === "left" && this.x - 4 >= 0) {
-			this.x -= 5
-		} else if (direction === "right" && this.x + this. width + 4 <= board.width) {
-			this.x += 5
-		} else if (direction === "down" && this.y + this.width + 4 <= board.height) {
-			if (!this.checkCollision("down")) {
-				this.y += 5
-			}
-		} else if (direction === "up" && this.y - 4 >= 0) {
-			if (!this.checkCollision(direction)) {
-				this.y -= 5
+		if (!this.checkCollision(direction)) {
+			if (direction === "left" && this.x - 4 >= 0) {
+				if (!this.checkCollision(direction)) {
+					this.x -= 5
+				}
+			} else if (direction === "right" && this.x + this. width + 4 <= board.width) {
+				this.x += 5
+			} else if (direction === "down" && this.y + this.width + 4 <= board.height) {
+				if (!this.checkCollision(direction)) {
+					this.y += 5
+				}
+			} else if (direction === "up" && this.y - 4 >= 0) {
+				if (!this.checkCollision(direction)) {
+					this.y -= 5
+				}
 			}
 		}
 		this.updateCorners()
@@ -153,6 +157,40 @@ class Player {
 							// COLLISION (return true)
 							((this.trCorner.x >= currentTile.blCorner.x) &&
 							(this.trCorner.x <= currentTile.brCorner.x))) {
+							console.log("COLLISION")
+							return true
+						}
+					}
+				}
+				if (direction === "left") {
+					// if the left of the player is right of the right of the tile
+					if ((this.tlCorner.x >= currentTile.trCorner.x) &&
+					// AND the left of the player is less than 5 pixels to the right of the tile
+					(this.tlCorner.x - 4 < currentTile.trCorner.x)) {
+						// if the tlCorner of the player's y is between the right corners of the tile
+						if (((this.tlCorner.y >= currentTile.trCorner.y) &&
+							(this.tlCorner.y <= currentTile.brCorner.y)) ||
+						// OR the blCorner " " " " " " " " " "
+							// COLLISION (return true)
+							((this.blCorner.y >= currentTile.trCorner.y) &&
+							(this.blCorner.y <= currentTile.brCorner.y))) {
+							console.log("COLLISION")
+							return true
+						}
+					}
+				}
+				if (direction === "right") {
+					// if the right of the player is left of the left of the tile
+					if ((this.trCorner.x <= currentTile.tlCorner.x) &&
+					// AND the right of the player is less than 5 pixels to the left of the tile
+					(this.trCorner.x + 4 > currentTile.tlCorner.x)) {
+						// if the trCorner of the player's y is between the left corners of the tile
+						if (((this.trCorner.y >= currentTile.tlCorner.y) &&
+							(this.trCorner.y <= currentTile.blCorner.y)) ||
+						// OR the brCorner " " " " " " " " " "
+							// COLLISION (return true)
+							((this.brCorner.y >= currentTile.tlCorner.y) &&
+							(this.brCorner.y <= currentTile.blCorner.y))) {
 							console.log("COLLISION")
 							return true
 						}
@@ -216,7 +254,8 @@ for (let i = 0; i < 4; i++) {
 	for (let j = 0; j < 12; j++) {
 		game.tiles.push(new Floor(j, i * 2))
 	}
-	for (let j = 0; j < 11; j++) {
+	game.tiles.push(new Floor(0, i * 2 + 1))
+	for (let j = 1; j < 11; j++) {
 		game.tiles.push(new Wall(j, i * 2 + 1))
 	}
 	game.tiles.push(new Floor(11, i * 2 + 1))
