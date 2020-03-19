@@ -106,24 +106,51 @@ class Player {
 		} else if (direction === "right" && this.x + this. width + 4 <= board.width) {
 			this.x += 5
 		} else if (direction === "down" && this.y + this.width + 4 <= board.height) {
-					this.y += 5
+			this.checkCollision("down")
+			this.y += 5
 		} else if (direction === "up" && this.y - 4 >= 0) {
 			this.y -= 5
 		}
 		this.updateCorners()
-		this.checkCollision()
 	}
+
 	checkCollision(direction) {
-		
+		// for all tiles on the board
+		for (let i = 0; i < game.tiles.length; i++) {
+			// if the tile is impassable
+			const currentTile = game.tiles[i]
+			if (!currentTile.passable) {
+				// if the direction is down
+				if (direction === "down") {
+					// if the bottom of the player is higher than the top of the tile
+					if ((this.blCorner.y <= currentTile.tlCorner.y) &&
+					// AND the bottom of the player is less than 5 pixels above the top of the tile
+					(this.blCorner.y + 4 > currentTile.tlCorner.y)) {
+						console.log("within range")
+						// if the blCorner of the player's x is between the corners of the top corners of the tile
+						if (((this.blCorner.x >= currentTile.tlCorner.x) &&
+							(this.blCorner.x <= currentTile.trCorner.x)) ||
+						// OR the brCorner " " " " " " " " " "
+							// COLLISION (return true)
+							((this.brCorner.x >= currentTile.tlCorner.x) &&
+							(this.brCorner.x <= currentTile.trCorner.x))) {
+							console.log("COLLISION")
+							return true
+						}
+					}
+				}
+			}
+		}
 	}
 }
+
 
 const game = {
 	tiles: [],
 
 	keysPressed: {},
 
-	players: [new Player(40, 40, 70, "blue"), new Player(300, 40, 70, "red")],
+	players: [new Player(0, 0, 70, "blue"), new Player(830, 530, 70, "red")],
 
 	drawBoard: function () {
 		for (let i = 0; i < this.tiles.length; i++) {
