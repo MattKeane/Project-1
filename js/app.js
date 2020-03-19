@@ -102,20 +102,14 @@ class Player {
 	}
 	move(direction) {
 		if (!this.checkCollision(direction)) {
-			if (direction === "left" && this.x - 4 >= 0) {
-				if (!this.checkCollision(direction)) {
-					this.x -= 5
-				}
-			} else if (direction === "right" && this.x + this. width + 4 <= board.width) {
-				this.x += 5
-			} else if (direction === "down" && this.y + this.width + 4 <= board.height) {
-				if (!this.checkCollision(direction)) {
-					this.y += 5
-				}
+			if (direction === "left" && this.x - 1 >= 0) {
+				this.x -= 1
+			} else if (direction === "right" && this.x + this. width + 1 <= board.width) {
+				this.x += 1
+			} else if (direction === "down" && this.y + this.width + 1 <= board.height) {
+				this.y += 1
 			} else if (direction === "up" && this.y - 4 >= 0) {
-				if (!this.checkCollision(direction)) {
-					this.y -= 5
-				}
+				this.y -= 1
 			}
 		}
 		this.updateCorners()
@@ -132,7 +126,7 @@ class Player {
 					// if the bottom of the player is higher than the top of the tile
 					if ((this.blCorner.y <= currentTile.tlCorner.y) &&
 					// AND the bottom of the player is less than 5 pixels above the top of the tile
-					(this.blCorner.y + 4 > currentTile.tlCorner.y)) {
+					(this.blCorner.y + 1 > currentTile.tlCorner.y)) {
 						// if the blCorner of the player's x is between the corners of the top corners of the tile
 						if (((this.blCorner.x >= currentTile.tlCorner.x) &&
 							(this.blCorner.x <= currentTile.trCorner.x)) ||
@@ -149,7 +143,7 @@ class Player {
 					// if the top of the player is lower than the bottm of the tile
 					if ((this.tlCorner.y >= currentTile.blCorner.y) &&
 					// AND the top of the player is less than 5 pixels below the bottom of the tile
-					(this.tlCorner.y - 4 < currentTile.blCorner.y)) {
+					(this.tlCorner.y - 1 < currentTile.blCorner.y)) {
 						// if the tlCorner of the player's x is between the corners of the top corners of the tile
 						if (((this.tlCorner.x >= currentTile.blCorner.x) &&
 							(this.tlCorner.x <= currentTile.brCorner.x)) ||
@@ -166,7 +160,7 @@ class Player {
 					// if the left of the player is right of the right of the tile
 					if ((this.tlCorner.x >= currentTile.trCorner.x) &&
 					// AND the left of the player is less than 5 pixels to the right of the tile
-					(this.tlCorner.x - 4 < currentTile.trCorner.x)) {
+					(this.tlCorner.x - 1 < currentTile.trCorner.x)) {
 						// if the tlCorner of the player's y is between the right corners of the tile
 						if (((this.tlCorner.y >= currentTile.trCorner.y) &&
 							(this.tlCorner.y <= currentTile.brCorner.y)) ||
@@ -183,7 +177,7 @@ class Player {
 					// if the right of the player is left of the left of the tile
 					if ((this.trCorner.x <= currentTile.tlCorner.x) &&
 					// AND the right of the player is less than 5 pixels to the left of the tile
-					(this.trCorner.x + 4 > currentTile.tlCorner.x)) {
+					(this.trCorner.x + 1 > currentTile.tlCorner.x)) {
 						// if the trCorner of the player's y is between the left corners of the tile
 						if (((this.trCorner.y >= currentTile.tlCorner.y) &&
 							(this.trCorner.y <= currentTile.blCorner.y)) ||
@@ -207,7 +201,7 @@ const game = {
 
 	keysPressed: {},
 
-	players: [new Player(0, 0, 70, "blue"), new Player(830, 530, 70, "red")],
+	players: [new Player(0, 0, 65, "blue"), new Player(830, 530, 65, "red")],
 
 	drawBoard: function () {
 		for (let i = 0; i < this.tiles.length; i++) {
@@ -227,21 +221,37 @@ const game = {
 
 	move: function() {
 		if (this.keysPressed.a) {
-			this.players[0].move("left")
+			for (let i = 0; i < 5; i++) {
+				this.players[0].move("left")
+			}
 		} if (this.keysPressed.s) {
-			this.players[0].move("down")
+			for (let i = 0; i < 5; i++) {
+				this.players[0].move("down")
+			}
 		} if (this.keysPressed.d) {
-			this.players[0].move("right")
+			for (let i = 0; i < 5; i++) {
+				this.players[0].move("right")
+			}
 		} if (this.keysPressed.w) {
-			this.players[0].move("up")
+			for (let i = 0; i < 5; i++) {
+				this.players[0].move("up")
+			}
 		} if (this.keysPressed.j) {
-			this.players[1].move("left")
+			for (let i = 0; i < 5; i++) {
+				this.players[1].move("left")
+			}
 		} if (this.keysPressed.k) {
-			this.players[1].move("down")
+			for (let i = 0; i < 5; i++) {
+				this.players[1].move("down")
+			}
 		} if (this.keysPressed.l) {
-			this.players[1].move("right") 
+			for (let i = 0; i < 5; i++) {
+				this.players[1].move("right") 
+			}
 		} if (this.keysPressed.i) {
-			this.players[1].move("up")
+			for (let i = 0; i < 5; i++) {
+				this.players[1].move("up")
+			}
 		}
 		this.clearBoard()
 		this.drawBoard()
