@@ -38,45 +38,75 @@ class Wall extends Tile {
 }
 
 class Player {
-	constructor(x, y, radius, color) {
+	constructor(x, y, width, color) {
 		this.x = x
 		this.y = y
 		this.color = color
-		this.radius = radius
+		this.width = width
+		this.tlCorner = {
+			"x": x,
+			"y": y
+		}
+		this.trCorner = {
+			"x": x + width,
+			"y": y
+		}
+		this.blCorner = {
+			"x": x,
+			"y": y + width
+		}
+		this.brCorner = {
+			"x": x + width,
+			"y": y + width
+		}
+	}
+	updateCorners() {
+		this.tlCorner = {
+			"x": this.x,
+			"y": this.y
+		}
+		this.trCorner = {
+			"x": this.x + this.width,
+			"y": this.y
+		}
+		this.blCorner = {
+			"x": this.x,
+			"y": this.y + this.width
+		}
+		this.brCorner = {
+			"x": this.x + this.width,
+			"y": this.y + this.width
+		}
 	}
 	draw() {
 		ctx.beginPath()
-		ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2)
+		ctx.rect(this.x, this.y, this.width, this.width)
 		ctx.fillStyle = this.color
 		ctx.fill()
 	}
 	move(direction) {
-		if (direction === "left" && this.x - 34 >= 0) {
+		if (direction === "left" && this.x - 4 >= 0) {
 			this.x -= 5
-		} else if (direction === "right" && this.x + 34 <= board.width) {
+		} else if (direction === "right" && this.x + this. width + 4 <= board.width) {
 			this.x += 5
-		} else if (direction === "down" && 
-			this.y + 34 <= board.height && 
-			!(this.y + this.radius >= game.tiles[i].y * 75 &&
-				this.y + this.radius <= game.tiles[i].y * 75 + 75 &&
-				this.x >= game.tiles[i].x * 75 &&
-				this.x <= game.tiles[i].x * 75 + 75)) {
+		} else if (direction === "down" && this.y + this.width + 4 <= board.height) {
 					this.y += 5
-		} else if (direction === "up" && this.y - 34 >= 0) {
+		} else if (direction === "up" && this.y - 4 >= 0) {
 			this.y -= 5
 		}
+		this.updateCorners()
 		this.checkCollision()
 	}
 	checkCollision() {
 		for (let i = 0; i < game.tiles.length; i++) {
 			if (!game.tiles[i].passable) {
 				// testing the right side
-				if ((this.x + this.radius >= game.tiles[i].x * 75 &&
-					this.x + this.radius <= game.tiles[i].x * 75 + 75 &&
+				if ((this.x + this.width >= game.tiles[i].x * 75 &&
+					this.x + this.width <= game.tiles[i].x * 75 + 75 &&
 					this.y >= game.tiles[i].y * 75 &&
 					this.y <= game.tiles[i].y * 75 + 75) ||
 					// testing the left side
-					(this.x - this.radius >= game.tiles[i].x * 75 &&
+					(this.x - this.width >= game.tiles[i].x * 75 &&
 					this.x - this.radius <= game.tiles[i].x * 75 + 75 &&
 					this.y >= game.tiles[i].y * 75 &&
 					this.y <= game.tiles[i].y * 75 + 75) ||
@@ -103,7 +133,7 @@ const game = {
 
 	keysPressed: {},
 
-	players: [new Player(40, 40, 30, "blue"), new Player(300, 40, 30, "red")],
+	players: [new Player(40, 40, 70, "blue"), new Player(300, 40, 70, "red")],
 
 	drawBoard: function () {
 		for (let i = 0; i < this.tiles.length; i++) {
