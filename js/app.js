@@ -106,10 +106,13 @@ class Player {
 		} else if (direction === "right" && this.x + this. width + 4 <= board.width) {
 			this.x += 5
 		} else if (direction === "down" && this.y + this.width + 4 <= board.height) {
-			this.checkCollision("down")
-			this.y += 5
+			if (!this.checkCollision("down")) {
+				this.y += 5
+			}
 		} else if (direction === "up" && this.y - 4 >= 0) {
-			this.y -= 5
+			if (!this.checkCollision(direction)) {
+				this.y -= 5
+			}
 		}
 		this.updateCorners()
 	}
@@ -126,7 +129,6 @@ class Player {
 					if ((this.blCorner.y <= currentTile.tlCorner.y) &&
 					// AND the bottom of the player is less than 5 pixels above the top of the tile
 					(this.blCorner.y + 4 > currentTile.tlCorner.y)) {
-						console.log("within range")
 						// if the blCorner of the player's x is between the corners of the top corners of the tile
 						if (((this.blCorner.x >= currentTile.tlCorner.x) &&
 							(this.blCorner.x <= currentTile.trCorner.x)) ||
@@ -134,6 +136,23 @@ class Player {
 							// COLLISION (return true)
 							((this.brCorner.x >= currentTile.tlCorner.x) &&
 							(this.brCorner.x <= currentTile.trCorner.x))) {
+							console.log("COLLISION")
+							return true
+						}
+					}
+				}
+				if (direction === "up") {
+					// if the top of the player is lower than the bottm of the tile
+					if ((this.tlCorner.y >= currentTile.blCorner.y) &&
+					// AND the top of the player is less than 5 pixels below the bottom of the tile
+					(this.tlCorner.y - 4 < currentTile.blCorner.y)) {
+						// if the tlCorner of the player's x is between the corners of the top corners of the tile
+						if (((this.tlCorner.x >= currentTile.blCorner.x) &&
+							(this.tlCorner.x <= currentTile.brCorner.x)) ||
+						// OR the trCorner " " " " " " " " " "
+							// COLLISION (return true)
+							((this.trCorner.x >= currentTile.blCorner.x) &&
+							(this.trCorner.x <= currentTile.brCorner.x))) {
 							console.log("COLLISION")
 							return true
 						}
