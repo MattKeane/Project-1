@@ -302,6 +302,8 @@ class Player {
 
 
 const game = {
+	running: false,
+
 	tiles: [],
 
 	gameObjects: [],
@@ -393,6 +395,13 @@ const game = {
 				this.gates[this.buttons[i].id].close()
 			}
 		}
+	}
+
+	start: function() {
+		this.running = true
+		const interval = window.setInterval( () => {
+			this.tick()
+		}, 1000)
 	}
 
 }
