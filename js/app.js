@@ -151,7 +151,7 @@ class Hazard extends Tile {
 
 class Lava extends Hazard {
 	constructor(x, y) {
-		super(x, y, 1)
+		super(x, y, 2)
 	}
 	draw() {
 		ctx.beginPath()
@@ -365,11 +365,16 @@ class Player {
 	takeDamage(amount) {
 		this.hp -= amount
 		game.displayHP()
+		if (this.hp <= 0) {
+			game.loseLife()
+		}
 	}
 }
 
 
 const game = {
+	lives: 3,
+
 	time: 0,
 
 	$player1HP: $( "#player-1-hp" ),
@@ -377,6 +382,8 @@ const game = {
 	$player2HP: $( "#player-2-hp" ),
 
 	$timer: $( "#timer" ),
+
+	$lives: $( "#lives" ),
 
 	running: false,
 
@@ -478,6 +485,7 @@ const game = {
 	start: function() {
 		this.running = true
 		this.displayHP()
+		this.displayLives()
 		const interval = window.setInterval( () => {
 			this.tick()
 		}, 1000)
@@ -490,7 +498,7 @@ const game = {
 
 	tick: function() {
 		this.$timer.text(++this.time)
-		if (this.time % 3 === 0) {
+		if (this.time % 2 === 0) {
 			for (let i = 0; i < this.hazards.length; i++) {
 				for (let j = 0; j < this.players.length; j++) {
 					if (this.players[j].overlapsWith(this.hazards[i])) {
@@ -503,6 +511,21 @@ const game = {
 
 	addHazard: function (tile) {
 		this.hazards.push(tile)
+	},
+
+	loseLife: function() {
+		if (--this.lives <= 0) {
+			this.gameOver()
+		}
+		this.displayLives()
+	},
+
+	gameOver: function() {
+		console.log("You lose")
+	},
+
+	displayLives: function() {
+		this.$lives.text(this.lives)
 	}
 
 }
