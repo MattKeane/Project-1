@@ -482,6 +482,15 @@ const game = {
 
 	tick: function() {
 		this.$timer.text(++this.time)
+		if (this.time % 3 === 0) {
+			for (let i = 0; i < this.hazards.length; i++) {
+				for (let j = 0; j < this.players.length; j++) {
+					if (this.players[j].overlapsWith(this.hazards[i])) {
+						this.players[j].takeDamage(this.hazards[i].damage)
+					}
+				}				
+			}
+		}
 	},
 
 	addHazard: function (tile) {
