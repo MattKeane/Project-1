@@ -133,6 +133,13 @@ class Gate extends Tile {
 	}
 }
 
+class Hazard extends Tile {
+	constructor(x, y) {
+		super(x, y, true, false, false)
+		game.addHazard(this)
+	}
+}
+
 class Player {
 	constructor(x, y, width, color) {
 		this.passable = false
@@ -331,6 +338,8 @@ const game = {
 
 	players: [new Player(0, 0, 65, "blue"), new Player(830, 530, 65, "red")],
 
+	hazards: [],
+
 	drawBoard: function () {
 		for (let i = 0; i < this.tiles.length; i++) {
 			this.tiles[i].draw()
@@ -427,6 +436,10 @@ const game = {
 
 	tick: function() {
 
+	},
+
+	addHazard: function (tile) {
+		this.hazards.push(tile)
 	}
 
 }
