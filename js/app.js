@@ -134,11 +134,49 @@ class Gate extends Tile {
 }
 
 class Hazard extends Tile {
-	constructor(x, y) {
+	constructor(x, y, damage) {
 		super(x, y, true, false, false)
+		this.damage = damage
 		game.addHazard(this)
 	}
 }
+
+class Lava extends Hazard {
+	constructor(x, y) {
+		super(x, y, 1)
+	}
+	draw() {
+		ctx.beginPath()
+		ctx.rect(this.x, this.y, 75, 75)
+		ctx.fillStyle = "orange"
+		ctx.fill()
+		for (let i = 0; i < 3; i++) {
+			ctx.beginPath()
+			ctx.moveTo(this.x, this.y + 30 * i + 15)
+			ctx.lineTo(this.x + 19, this.y + 30 * i)
+			ctx.lineTo(this.x + 38, this.y + 30 * i + 15)
+			ctx.lineTo(this.x + 57, this.y + 30 * i)
+			ctx.lineTo(this.x + 75, this.y + 30 * i + 15)
+			ctx.strokeStyle = "yellow"
+			ctx.lineWidth = 5
+			ctx.stroke()
+		}
+		for (let i = 0; i < 2; i++) {
+			ctx.beginPath()
+			ctx.moveTo(this.x, this.y + 30 * i + 30)
+			ctx.lineTo(this.x + 19, this.y + 30 * i + 15)
+			ctx.lineTo(this.x + 38, this.y + 30 * i + 30)
+			ctx.lineTo(this.x + 57, this.y + 30 * i + 15)
+			ctx.lineTo(this.x + 75, this.y + 30 * i + 30)
+			ctx.strokeStyle = "red"
+			ctx.lineWidth = 5
+			ctx.stroke()
+		}
+	}
+}
+
+
+
 
 class Player {
 	constructor(x, y, width, color) {
@@ -444,7 +482,10 @@ const game = {
 
 }
 
-for (let i = 0; i < 10; i++) {
+
+game.tiles.push(new Floor(0, 0))
+game.tiles.push(new Lava(1, 0))
+for (let i = 2; i < 10; i++) {
 		game.tiles.push(new Floor(i, 0))
 }
 game.tiles.push(new Gate(10, 0, "green", 0))
