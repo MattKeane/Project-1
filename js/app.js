@@ -72,6 +72,7 @@ class Button extends Tile {
 		super(x, y, true, false, true)
 		this.color = color
 		this.id = id
+		game.addButton(this)
 	}
 	draw() {
 		ctx.beginPath()
@@ -89,7 +90,8 @@ class Gate extends Tile {
 	constructor(x, y, color, id) {
 		super(x, y, false, false, false)
 		this.color = color
-		game.gates.push(this)
+		this.id = id
+		game.addGate(this)
 	}
 	draw() {
 		if (this.passable) {
@@ -125,6 +127,9 @@ class Gate extends Tile {
 	}
 	open() {
 		this.passable = true
+	}
+	close() {
+		this.passable = false
 	}
 }
 
@@ -305,6 +310,8 @@ const game = {
 
 	gates: [],
 
+	buttons: [],
+
 	players: [new Player(0, 0, 65, "blue"), new Player(830, 530, 65, "red")],
 
 	drawBoard: function () {
@@ -357,6 +364,7 @@ const game = {
 				this.players[1].move("up")
 			}
 		}
+		this.checkButtons()
 		this.clearBoard()
 		this.drawBoard()
 		this.drawPlayers()
@@ -367,7 +375,26 @@ const game = {
 		if (this.players[0].onGoal() && this.players[1].onGoal()) {
 			console.log("YOU WIN")
 		}
+	},
+
+	addButton: function(button) {
+		this.buttons.push(button)
+	},
+
+	addGate: function(gate) {
+		this.gates[gate.id] = gate
+	},
+
+	checkButtons: function() {
+		for (let i = 0; i < this.buttons.length; i++) {
+			if (this.players[0].isInside(this.buttons[i]) || this.players[1].isInside(this.buttons[i])) {
+				this.gates[this.buttons[i].id].open()
+			} else {
+				this.gates[this.buttons[i].id].close()
+			}
+		}
 	}
+
 }
 
 for (let i = 0; i < 10; i++) {
