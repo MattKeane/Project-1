@@ -210,12 +210,12 @@ class Player {
 					// AND the bottom of the player is less than 5 pixels above the top of the tile
 					(this.blCorner.y + 1 > currentTile.tlCorner.y)) {
 						// if the blCorner of the player's x is between the corners of the top corners of the tile
-						if (((this.blCorner.x >= currentTile.tlCorner.x) &&
-							(this.blCorner.x <= currentTile.trCorner.x)) ||
+						if (((this.blCorner.x > currentTile.tlCorner.x) &&
+							(this.blCorner.x < currentTile.trCorner.x)) ||
 						// OR the brCorner " " " " " " " " " "
 							// COLLISION (return true)
-							((this.brCorner.x >= currentTile.tlCorner.x) &&
-							(this.brCorner.x <= currentTile.trCorner.x))) {
+							((this.brCorner.x > currentTile.tlCorner.x) &&
+							(this.brCorner.x < currentTile.trCorner.x))) {
 							return true
 						}
 					}
@@ -281,8 +281,21 @@ class Player {
 				(corners[i].y > tile.trCorner.y))) {
 					return false
 			}
-			return true
 		}
+		return true
+	}
+
+	overlapsWith(tile) {
+		const corners = [this.tlCorner, this.trCorner, this.blCorner, this.brCorner]
+		for (let i = 0; i < corners.length; i++) {
+			if ((corners[i].x < tile.trCorner.x) &&
+				(corners[i].x > tile.tlCorner.x) &&
+				(corners[i].y < tile.brCorner.y) &&
+				(corners[i].y > tile.trCorner.y)) {
+					return true
+			}
+		}
+		return false
 	}
 
 	onGoal() {
@@ -413,7 +426,7 @@ const game = {
 	},
 
 	tick: function() {
-		
+
 	}
 
 }
