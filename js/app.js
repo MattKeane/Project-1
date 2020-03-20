@@ -85,6 +85,49 @@ class Button extends Tile {
 	}
 }
 
+class Gate extends Tile {
+	constructor(x, y, color, id) {
+		super(x, y, false, false, false)
+		this.color = color
+		game.gates.push(this)
+	}
+	draw() {
+		if (this.passable) {
+			ctx.beginPath()
+			ctx.rect(this.x, this.y, 75, 75)
+			ctx.fillStyle = ("rgb(200, 200, 200)")
+			ctx.fill()
+			ctx.beginPath()
+			ctx.rect(this.x, this.y, 75, 75)
+			ctx.strokeStyle = this.color
+			ctx.lineWidth = 2
+			ctx.stroke()
+		} else {
+			ctx.beginPath()
+			ctx.rect(this.x, this.y, 75, 75)
+			ctx.fillStyle = ("rgb(200, 200, 200)")
+			ctx.fill()
+			ctx.beginPath()
+			ctx.rect(this.x, this.y, 75, 75)
+			ctx.strokeStyle = this.color
+			ctx.lineWidth = 2
+			ctx.stroke()
+			for (let i = 1; i < 4; i++) {
+				ctx.beginPath()
+				ctx.moveTo(this.x + i * 19, this.y)
+				ctx.lineTo(this.x + i * 19, this.y + 75)
+				ctx.strokeStyle = this.color
+				ctx.lineWidth = 2
+				ctx.stroke()
+			}
+		}
+
+	}
+	open() {
+		this.passable = true
+	}
+}
+
 class Player {
 	constructor(x, y, width, color) {
 		this.passable = false
@@ -260,6 +303,8 @@ const game = {
 
 	keysPressed: {},
 
+	gates: [],
+
 	players: [new Player(0, 0, 65, "blue"), new Player(830, 530, 65, "red")],
 
 	drawBoard: function () {
@@ -325,10 +370,10 @@ const game = {
 	}
 }
 
-for (let i = 0; i < 11; i++) {
+for (let i = 0; i < 10; i++) {
 		game.tiles.push(new Floor(i, 0))
 }
-
+game.tiles.push(new Gate(10, 0, "green", 0))
 const goal1 = new Goal(11,0)
 game.tiles.push(goal1)
 game.tiles.push(new Floor(0, 1))
