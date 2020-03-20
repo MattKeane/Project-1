@@ -234,6 +234,26 @@ class Player {
 		ctx.rect(this.x, this.y, this.width, this.width)
 		ctx.fillStyle = this.color
 		ctx.fill()
+		for (let i = 1; i < 3; i++) {
+			ctx.beginPath()
+			ctx.arc(this.x + i * 20, this.y + 20, 10, 0, Math.PI * 2)
+			ctx.fillStyle = "white"
+			ctx.fill()
+			ctx.beginPath()
+			ctx.arc(this.x + i * 20, this.y + 20, 10, 0, Math.PI * 2)
+			ctx.strokeStyle = "black"
+			ctx.lineWidth = 3
+			ctx.stroke()
+			ctx.beginPath()
+			ctx.arc(this.x + i * 20, this.y + 20, 3, 0, Math.PI * 2)
+			ctx.fillStyle = "black"
+			ctx.fill()
+		}
+		ctx.beginPath()
+		ctx.arc(this.x + 32, this.y + 25, 30, Math.PI / 4, Math.PI * 3 / 4)
+		ctx.strokeStyle = "black"
+		ctx.lineWidth = 3
+		ctx.stroke()
 	}
 	move(direction) {
 		if (!this.checkCollision(direction)) {
