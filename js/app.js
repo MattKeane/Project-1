@@ -362,6 +362,14 @@ class Player {
 
 
 const game = {
+	time: 0,
+
+	$player1HP: $( "#player-1-hp" ),
+
+	$player2HP: $( "#player-2-hp" ),
+
+	$timer: $( "#timer" ),
+
 	running: false,
 
 	tiles: [],
@@ -468,12 +476,12 @@ const game = {
 	},
 
 	displayHP: function() {
-		$( "#player-1-hp" ).text(this.players[0].hp)
-		$( "#player-2-hp" ).text(this.players[1].hp)
+		this.$player1HP.text(this.players[0].hp)
+		this.$player2HP.text(this.players[1].hp)
 	},
 
 	tick: function() {
-
+		this.$timer.text(++this.time)
 	},
 
 	addHazard: function (tile) {
@@ -481,7 +489,6 @@ const game = {
 	}
 
 }
-
 
 game.tiles.push(new Floor(0, 0))
 game.tiles.push(new Lava(1, 0))
