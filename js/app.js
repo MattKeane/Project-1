@@ -2,7 +2,8 @@ const board = document.querySelector("#board")
 const ctx = board.getContext("2d")
 
 class Tile {
-	constructor(x, y, passable, goal) {
+	constructor(x, y, passable, goal, button) {
+		this.button = false
 		this.x = x * 75
 		this.y = y * 75
 		this.passable = passable
@@ -28,7 +29,7 @@ class Tile {
 
 class Floor extends Tile {
 	constructor(x, y) {
-		super(x, y, true, false)
+		super(x, y, true, false, false)
 	}
 	draw() {
 		ctx.beginPath()
@@ -40,14 +41,14 @@ class Floor extends Tile {
 
 class Wall extends Tile {
 	constructor(x, y) {
-		super(x, y, false, false)
+		super(x, y, false, false, false)
 	}
 	draw () {
 		ctx.beginPath()
 		ctx.rect(this.x, this.y, 75, 75)
 		ctx.fillStyle = "rgb(100, 100, 100)"
 		ctx.fill()
-		ctx.rect(this.x, this.y * 75, 75, 75)
+		ctx.rect(this.x, this.y, 75, 75)
 		ctx.lineWidth = 1
 		ctx.strokeStyle = "black"
 		ctx.stroke()
@@ -56,12 +57,30 @@ class Wall extends Tile {
 
 class Goal extends Tile {
 	constructor(x, y) {
-		super(x, y, true, true)
+		super(x, y, true, true, false)
 	}
 	draw() {
 		ctx.beginPath()
 		ctx.rect(this.x, this.y, 75, 75)
 		ctx.fillStyle = "gold"
+		ctx.fill()
+	}
+}
+
+class Button extends Tile {
+	constructor(x, y, color, id) {
+		super(x, y, true, false, true)
+		this.color = color
+		this.id = id
+	}
+	draw() {
+		ctx.beginPath()
+		ctx.rect(this.x, this.y, 75, 75)
+		ctx.fillStyle = "rgb(200, 200, 200)"
+		ctx.fill()
+		ctx.beginPath()
+		ctx.arc(this.x + 37, this.y +37, 35, 0, Math.PI * 2)
+		ctx.fillStyle = this.color
 		ctx.fill()
 	}
 }
@@ -172,7 +191,7 @@ class Player {
 				}
 				if (direction === "left") {
 					// if the left of the player is right of the right of the tile
-					if ((this.tlCorner.x > currentTile.trCorner.x) &&
+					if ((this.tlCorner.x >= currentTile.trCorner.x) &&
 					// AND the left of the player is less than 5 pixels to the right of the tile
 					(this.tlCorner.x - 1 < currentTile.trCorner.x)) {
 						// if the tlCorner of the player's y is between the right corners of the tile
@@ -334,7 +353,7 @@ game.tiles.push(new Goal(0, 7))
 for (let i = 1; i < 11; i++) {
 	game.tiles.push(new Wall(i, 7))
 }
-game.tiles.push(new Floor(11, 7))
+game.tiles.push(new Button(11, 7, "green", 0))
 
 game.drawBoard()
 
