@@ -156,6 +156,7 @@ class Player {
 			"x": x + width,
 			"y": y + width
 		}
+		this.hp = 10
 	}
 	updateCorners() {
 		this.tlCorner = {
@@ -215,7 +216,6 @@ class Player {
 							// COLLISION (return true)
 							((this.brCorner.x >= currentTile.tlCorner.x) &&
 							(this.brCorner.x <= currentTile.trCorner.x))) {
-							console.log("COLLISION")
 							return true
 						}
 					}
@@ -232,7 +232,6 @@ class Player {
 							// COLLISION (return true)
 							((this.trCorner.x > currentTile.blCorner.x) &&
 							(this.trCorner.x < currentTile.brCorner.x))) {
-							console.log("COLLISION")
 							return true
 						}
 					}
@@ -249,7 +248,6 @@ class Player {
 							// COLLISION (return true)
 							((this.blCorner.y > currentTile.trCorner.y) &&
 							(this.blCorner.y < currentTile.brCorner.y))) {
-							console.log("COLLISION")
 							return true
 						}
 					}
@@ -266,7 +264,6 @@ class Player {
 							// COLLISION (return true)
 							((this.brCorner.y > currentTile.tlCorner.y) &&
 							(this.brCorner.y < currentTile.blCorner.y))) {
-							console.log("COLLISION")
 							return true
 						}
 					}
@@ -297,6 +294,10 @@ class Player {
 			}
 		}
 		return false
+	}
+
+	takeDamage(amount) {
+		this.hp -= amount
 	}
 }
 
