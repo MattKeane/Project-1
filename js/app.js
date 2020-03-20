@@ -367,7 +367,12 @@ class Player {
 		game.displayHP()
 		if (this.hp <= 0) {
 			game.loseLife()
+			game.resetLevel()
 		}
+	}
+
+	resetHP() {
+		this.hp = 10
 	}
 }
 
@@ -526,6 +531,12 @@ const game = {
 
 	displayLives: function() {
 		this.$lives.text(this.lives)
+	},
+
+	resetLevel: function() {
+		this.players[0].resetHP()
+		this.players[1].resetHP()
+		this.displayHP()
 	}
 
 }
