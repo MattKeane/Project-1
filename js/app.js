@@ -298,6 +298,7 @@ class Player {
 
 	takeDamage(amount) {
 		this.hp -= amount
+		game.displayHP()
 	}
 }
 
@@ -396,13 +397,23 @@ const game = {
 				this.gates[this.buttons[i].id].close()
 			}
 		}
-	}
+	},
 
 	start: function() {
 		this.running = true
+		this.displayHP()
 		const interval = window.setInterval( () => {
 			this.tick()
 		}, 1000)
+	},
+
+	displayHP: function() {
+		$( "#player-1-hp" ).text(this.players[0].hp)
+		$( "#player-2-hp" ).text(this.players[1].hp)
+	},
+
+	tick: function() {
+		
 	}
 
 }
@@ -449,6 +460,9 @@ for (let i = 0; i < game.players.length; i++) {
 
 
 $( document ).on("keydown", (event) => {
+	if (!game.running) {
+		game.start()
+	}
 	game.keysPressed[event.key] = true
 	game.move()
 })
