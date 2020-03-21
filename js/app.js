@@ -400,7 +400,6 @@ class Player {
 		game.displayHP()
 		if (this.hp <= 0) {
 			game.loseLife()
-			game.restartLevel()
 		}
 	}
 
@@ -550,7 +549,10 @@ const game = {
 
 	tick: function() {
 		++this.time
-		this.$timer.text(--this.timer)
+		if (--this.timer <= 0) {
+			this.loseLife()
+		}
+		this.displayTimer()
 		if (this.time % 2 === 0) {
 			for (let i = 0; i < this.hazards.length; i++) {
 				for (let j = 0; j < this.players.length; j++) {
@@ -571,6 +573,7 @@ const game = {
 			this.gameOver()
 		}
 		this.displayLives()
+		this.restartLevel()
 	},
 
 	gameOver: function() {
@@ -633,8 +636,13 @@ const game = {
 		this.drawPlayers()
 	},
 
-	resetTimer() {
+	resetTimer: function() {
 		this.timer = this.currentLevel.startTime
+		this.displayTimer()
+	},
+
+	displayTimer: function() {
+		this.$timer.text( this.timer )
 	}
 
 }
