@@ -506,7 +506,12 @@ const game = {
 
 	checkForWin: function() {
 		if (this.players[0].onGoal() && this.players[1].onGoal()) {
-			this.loadLevel(this.levels[++this.levelCount])
+			if (++this.levelCount >= this.levels.length) {
+				alert("You win!")
+			} else {
+				this.loadLevel(this.levels[this.levelCount])
+			}
+			
 		}
 	},
 
@@ -666,7 +671,12 @@ game.levels.push(testLevel)
 
 const tiles2 = []
 
-for (let i = 0; i < 8; i++) {
+tiles2.push(new Goal(0, 0))
+tiles2.push(new Goal(1, 0))
+for (let i = 2; i < 12; i++) {
+	tiles2.push(new Floor(i, 0))
+}
+for (let i = 1; i < 8; i++) {
 	for (let j = 0; j < 12; j ++) {
 		tiles2.push(new Floor(j, i))
 	}
