@@ -34,6 +34,9 @@ class Tile {
 		}
 		this.goal = goal
 	}
+	load() {
+		game.addTile(this)
+	}
 }
 
 class Floor extends Tile {
@@ -81,7 +84,6 @@ class Button extends Tile {
 		super(x, y, true, false, true)
 		this.color = color
 		this.id = id
-		game.addButton(this)
 	}
 	draw() {
 		ctx.beginPath()
@@ -93,6 +95,10 @@ class Button extends Tile {
 		ctx.fillStyle = this.color
 		ctx.fill()
 	}
+	load() {
+		super.load()
+		game.addButton(this)
+	}
 }
 
 class Gate extends Tile {
@@ -100,7 +106,6 @@ class Gate extends Tile {
 		super(x, y, false, false, false)
 		this.color = color
 		this.id = id
-		game.addGate(this)
 	}
 	draw() {
 		if (this.passable) {
@@ -140,12 +145,19 @@ class Gate extends Tile {
 	close() {
 		this.passable = false
 	}
+	load() {
+		super.load()
+		game.addGate(this)
+	}
 }
 
 class Hazard extends Tile {
 	constructor(x, y, damage) {
 		super(x, y, true, false, false)
 		this.damage = damage
+	}
+	load() {
+		super.load()
 		game.addHazard(this)
 	}
 }
@@ -569,11 +581,22 @@ const game = {
 		this.gates = []
 		this.hazards = []
 		this.gameObjects = []
+	},
+
+	loadTiles: function(tiles) {
+		for (let i = 0; i < tiles.length; i++) {
+			tiles[i].load()
+		}
+	},
+
+	addTile(tile) {
+		this.tiles.push(tile)
 	}
 
 }
 
-game.tiles.push(new Floor(0, 0))
+const testLoad = new Floor(0, 0)
+testLoad.load()
 game.tiles.push(new Lava(1, 0))
 for (let i = 2; i < 10; i++) {
 		game.tiles.push(new Floor(i, 0))
