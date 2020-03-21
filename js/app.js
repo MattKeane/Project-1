@@ -417,6 +417,10 @@ class Player {
 
 
 const game = {
+	levels: [],
+
+	levelCount: 0,
+
 	lives: 3,
 
 	time: 0,
@@ -526,7 +530,7 @@ const game = {
 
 	start: function() {
 		this.running = true
-		this.loadLevel(testLevel)
+		this.loadLevel(this.levels[0])
 		this.displayHP()
 		this.displayLives()
 		const interval = window.setInterval( () => {
@@ -658,7 +662,7 @@ testTiles.push(new Button(11, 7, "green", 0))
 
 const testLevel = new Level(0, 0, 830, 530, testTiles, 0)
 
-
+game.levels.push(testLevel)
 
 
 $( document ).on("keydown", (event) => {
