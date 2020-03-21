@@ -506,7 +506,7 @@ const game = {
 
 	checkForWin: function() {
 		if (this.players[0].onGoal() && this.players[1].onGoal()) {
-			console.log("YOU WIN")
+			this.loadLevel(this.levels[++this.levelCount])
 		}
 	},
 
@@ -663,6 +663,17 @@ testTiles.push(new Button(11, 7, "green", 0))
 const testLevel = new Level(0, 0, 830, 530, testTiles, 0)
 
 game.levels.push(testLevel)
+
+const tiles2 = []
+
+for (let i = 0; i < 8; i++) {
+	for (let j = 0; j < 12; j ++) {
+		tiles2.push(new Floor(j, i))
+	}
+}
+
+const level2 = new Level(0, 0, 0, 530, tiles2, 0)
+game.levels.push(level2)
 
 
 $( document ).on("keydown", (event) => {
