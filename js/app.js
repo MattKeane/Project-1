@@ -549,7 +549,8 @@ const game = {
 	},
 
 	tick: function() {
-		this.$timer.text(++this.time)
+		++this.time
+		this.$timer.text(--this.timer)
 		if (this.time % 2 === 0) {
 			for (let i = 0; i < this.hazards.length; i++) {
 				for (let j = 0; j < this.players.length; j++) {
@@ -581,6 +582,7 @@ const game = {
 	},
 
 	restartLevel: function() {
+		this.resetTimer()
 		this.players[0].resetHP()
 		this.players[1].resetHP()
 		this.displayHP()
@@ -590,6 +592,7 @@ const game = {
 
 	loadLevel: function(level) {
 		this.currentLevel = level
+		this.resetTimer()
 		this.players[0].resetHP()
 		this.players[1].resetHP()
 		this.tiles = []
@@ -628,6 +631,10 @@ const game = {
 		this.clearBoard()
 		this.drawBoard()
 		this.drawPlayers()
+	},
+
+	resetTimer() {
+		this.timer = this.currentLevel.startTime
 	}
 
 }
@@ -665,7 +672,7 @@ for (let i = 1; i < 11; i++) {
 }
 testTiles.push(new Button(11, 7, "green", 0))
 
-const testLevel = new Level(0, 0, 830, 530, testTiles, 0)
+const testLevel = new Level(0, 0, 830, 530, testTiles, 30)
 
 game.levels.push(testLevel)
 
@@ -682,7 +689,7 @@ for (let i = 1; i < 8; i++) {
 	}
 }
 
-const level2 = new Level(0, 0, 0, 530, tiles2, 0)
+const level2 = new Level(0, 0, 0, 530, tiles2, 30)
 game.levels.push(level2)
 
 
