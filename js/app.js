@@ -2,10 +2,11 @@ const board = document.querySelector("#board")
 const ctx = board.getContext("2d")
 
 class Level {
-	constructor(player1StartX, player1StartY, player2StartX, player2StartY, tiles) {
+	constructor(player1StartX, player1StartY, player2StartX, player2StartY, tiles, startTime) {
 		this.player1Start = {"x": player1StartX, "y": player1StartY}
 		this.player2Start = {"x": player2StartX, "y": player2StartY}
 		this.tiles = tiles
+		this.startTime = startTime
 	}
 }
 
