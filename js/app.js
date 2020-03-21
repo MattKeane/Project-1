@@ -388,7 +388,7 @@ class Player {
 		game.displayHP()
 		if (this.hp <= 0) {
 			game.loseLife()
-			game.resetLevel()
+			game.restartLevel()
 		}
 	}
 
@@ -554,10 +554,21 @@ const game = {
 		this.$lives.text(this.lives)
 	},
 
-	resetLevel: function() {
+	restartLevel: function() {
 		this.players[0].resetHP()
 		this.players[1].resetHP()
 		this.displayHP()
+	},
+
+	loadLevel: function(level) {
+		this.players[0].resetHP()
+		this.players[1].resetHP()
+		this.tiles = []
+		this.time = 0
+		this.buttons = []
+		this.gates = []
+		this.hazards = []
+		this.gameObjects = []
 	}
 
 }
