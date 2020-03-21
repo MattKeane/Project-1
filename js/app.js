@@ -411,6 +411,7 @@ class Player {
 	goTo(x, y) {
 		this.x = x
 		this.y = y
+		this.updateCorners()
 	}
 }
 
@@ -495,9 +496,7 @@ const game = {
 			}
 		}
 		this.checkButtons()
-		this.clearBoard()
-		this.drawBoard()
-		this.drawPlayers()
+		this.refreshScreen()
 		this.checkForWin()
 	},
 
@@ -576,9 +575,12 @@ const game = {
 		this.players[0].resetHP()
 		this.players[1].resetHP()
 		this.displayHP()
+		this.startPlayers()
+		this.refreshScreen()
 	},
 
 	loadLevel: function(level) {
+		this.currentLevel = level
 		this.players[0].resetHP()
 		this.players[1].resetHP()
 		this.tiles = []
@@ -588,11 +590,8 @@ const game = {
 		this.hazards = []
 		this.gameObjects = []
 		this.loadTiles(level.tiles)
-		this.players[0].goTo(level.player1Start.x, level.player1Start.y)
-		this.players[1].goTo(level.player2Start.x, level.player2Start.y)
-		this.clearBoard()
-		this.drawBoard()
-		this.drawPlayers()
+		this.startPlayers()
+		this.refreshScreen()
 		for (let i = 0; i < this.tiles.length; i++) {
 			this.gameObjects.push(this.tiles[i])
 		}
@@ -607,8 +606,19 @@ const game = {
 		}
 	},
 
-	addTile(tile) {
+	addTile: function(tile) {
 		this.tiles.push(tile)
+	},
+
+	startPlayers: function() {
+		this.players[0].goTo(this.currentLevel.player1Start.x, this.currentLevel.player1Start.y)
+		this.players[1].goTo(this.currentLevel.player2Start.x, this.currentLevel.player2Start.y)
+	},
+
+	refreshScreen: function() {
+		this.clearBoard()
+		this.drawBoard()
+		this.drawPlayers()
 	}
 
 }
