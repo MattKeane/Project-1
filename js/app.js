@@ -407,6 +407,11 @@ class Player {
 	resetHP() {
 		this.hp = 10
 	}
+
+	goTo(x, y) {
+		this.x = x
+		this.y = y
+	}
 }
 
 
@@ -522,6 +527,7 @@ const game = {
 
 	start: function() {
 		this.running = true
+		this.loadLevel(testLevel)
 		this.displayHP()
 		this.displayLives()
 		const interval = window.setInterval( () => {
@@ -581,6 +587,18 @@ const game = {
 		this.gates = []
 		this.hazards = []
 		this.gameObjects = []
+		this.loadTiles(level.tiles)
+		this.players[0].goTo(level.player1Start.x, level.player1Start.y)
+		this.players[1].goTo(level.player2Start.x, level.player2Start.y)
+		this.clearBoard()
+		this.drawBoard()
+		this.drawPlayers()
+		for (let i = 0; i < this.tiles.length; i++) {
+			this.gameObjects.push(this.tiles[i])
+		}
+		for (let i = 0; i < this.players.length; i++) {
+			this.gameObjects.push(this.players[i])
+		}
 	},
 
 	loadTiles: function(tiles) {
@@ -595,48 +613,42 @@ const game = {
 
 }
 
-const testLoad = new Floor(0, 0)
-testLoad.load()
-game.tiles.push(new Lava(1, 0))
+const testTiles = []
+testTiles.push(new Floor(0, 0))
+testTiles.push(new Lava(1, 0))
 for (let i = 2; i < 10; i++) {
-		game.tiles.push(new Floor(i, 0))
+		testTiles.push(new Floor(i, 0))
 }
-game.tiles.push(new Gate(10, 0, "green", 0))
+testTiles.push(new Gate(10, 0, "green", 0))
 const goal1 = new Goal(11,0)
-game.tiles.push(goal1)
-game.tiles.push(new Floor(0, 1))
+testTiles.push(goal1)
+testTiles.push(new Floor(0, 1))
 for (let i = 1; i < 11; i++) {
-	game.tiles.push(new Wall(i, 1))
+	testTiles.push(new Wall(i, 1))
 }
-	game.tiles.push(new Floor(11, 1))
+	testTiles.push(new Floor(11, 1))
 for (let i = 1; i < 3; i++) {
 	for (let j = 0; j < 12; j++) {
-		game.tiles.push(new Floor(j, i * 2))
+		testTiles.push(new Floor(j, i * 2))
 	}
-	game.tiles.push(new Floor(0, i * 2 + 1))
+	testTiles.push(new Floor(0, i * 2 + 1))
 	for (let j = 1; j < 11; j++) {
-		game.tiles.push(new Wall(j, i * 2 + 1))
+		testTiles.push(new Wall(j, i * 2 + 1))
 	}
-	game.tiles.push(new Floor(11, i * 2 + 1))
+	testTiles.push(new Floor(11, i * 2 + 1))
 }
 for (let i = 0; i < 12; i++) {
-	game.tiles.push(new Floor(i, 6))
+	testTiles.push(new Floor(i, 6))
 }
-game.tiles.push(new Goal(0, 7))
+testTiles.push(new Goal(0, 7))
 for (let i = 1; i < 11; i++) {
-	game.tiles.push(new Wall(i, 7))
+	testTiles.push(new Wall(i, 7))
 }
-game.tiles.push(new Button(11, 7, "green", 0))
+testTiles.push(new Button(11, 7, "green", 0))
 
-game.drawBoard()
+const testLevel = new Level(0, 0, 830, 530, testTiles, 0)
 
-for (let i = 0; i < game.tiles.length; i++) {
-	game.gameObjects.push(game.tiles[i])
-}
 
-for (let i = 0; i < game.players.length; i++) {
-	game.gameObjects.push(game.players[i])
-}
 
 
 $( document ).on("keydown", (event) => {
