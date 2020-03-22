@@ -648,6 +648,15 @@ const game = {
 
 	addLevel: function(level) {
 		this.levels.push(level)
+	},
+
+	click: function(target) {
+		if (target === "retry" && game.running) {
+			this.loseLife()
+		} else if (target === "restart") {
+			this.start()
+		}
+
 	}
 
 }
@@ -667,4 +676,8 @@ $( document ).on("keydown", (event) => {
 
 $( document ).on("keyup", (event) => {
 	delete game.keysPressed[event.key]
+})
+
+$( "#display" ).on("click", (event) => {
+	game.click($( event.target ).attr("id"))
 })
