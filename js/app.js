@@ -541,7 +541,7 @@ const game = {
 		this.loadLevel(this.levels[0])
 		this.displayHP()
 		this.displayLives()
-		const interval = window.setInterval( () => {
+		this.interval = window.setInterval( () => {
 			this.tick()
 		}, 1000)
 	},
@@ -582,6 +582,7 @@ const game = {
 
 	gameOver: function() {
 		console.log("You lose")
+		this.stopTime()
 	},
 
 	displayLives: function() {
@@ -661,6 +662,7 @@ const game = {
 		if ($target.attr("id") === "retry" && game.running) {
 			this.loseLife()
 		} else if ($target.attr("id") === "restart") {
+			this.stopTime()
 			this.start()
 		}
 
@@ -673,6 +675,10 @@ const game = {
 		$target.animate({
 			opacity: 1
 		}, 100)
+	},
+
+	stopTime: function() {
+		clearInterval(this.interval)
 	}
 
 }
