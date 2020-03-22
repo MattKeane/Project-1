@@ -3,16 +3,22 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<link href="https://fonts.googleapis.com/css?family=Orbitron|Passion+One|Press+Start+2P|Rubik+Mono+One|Russo+One&display=swap" rel="stylesheet">
 	<title>Dungeon Crawl</title>
 </head>
 <body>
 	<div id="screen">
 		<canvas id="board" width="900px" height="600px"></canvas>
 		<div id="display">
-			<h2>Player 1 HP: <span id="player-1-hp"></span> / 10</h2>
-			<h2>Player 2 HP: <span id="player-2-hp"></span> / 10</h2>
-			<h2>Lives: <span id="lives"></span></h2>
-			<h2>Timer: <span id="timer"></span></h2>
+			<div id="timer"></div>
+			<h3>Time</h3>
+			<div id="lives"></div>
+			<h3>Lives Left</h3>
+			<h2>P1 HP:<span id="player-1-hp"></span></h2>
+			<h2>P2 HP:<span id="player-2-hp"></span></h2>
+			<div class="button" id="retry">Retry Level</div>
+			<div class="button" id="restart">Restart Game</div>
+
 		</div>
 	</div>
 
