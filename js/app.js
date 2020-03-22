@@ -577,12 +577,23 @@ const game = {
 			this.gameOver()
 		}
 		this.displayLives()
-		this.restartLevel()
+		if (this.running) {
+			this.restartLevel()
+		}
 	},
 
 	gameOver: function() {
 		console.log("You lose")
 		this.stopTime()
+		this.running = false
+		ctx.beginPath()
+		ctx.rect(0, 0, 900, 600)
+		ctx.fillStyle = "black"
+		ctx.fill()
+		ctx.beginPath()
+		ctx.font = "40px sans-serif"
+		ctx.fillStyle = "rgb(0, 200, 0)"
+		ctx.fillText("GAME OVER", 450, 300)
 	},
 
 	displayLives: function() {
@@ -679,9 +690,23 @@ const game = {
 
 	stopTime: function() {
 		clearInterval(this.interval)
+	},
+
+	openingScreen: function() {
+		ctx.beginPath()
+		ctx.rect(0, 0, 900, 600)
+		ctx.fillStyle = "black"
+		ctx.fill()
+		ctx.beginPath()
+		ctx.font = "30px sans-serif"
+		ctx.textAlign = "center"
+		ctx.fillStyle = "rgb(0, 200, 0)"
+		ctx.fillText("Press Any Button to Begin", 450, 300)
 	}
 
 }
+
+game.openingScreen()
 
 
 
