@@ -164,7 +164,7 @@ class Hazard extends Tile {
 
 class Lava extends Hazard {
 	constructor(x, y) {
-		super(x, y, 2)
+		super(x, y, 1)
 	}
 	draw() {
 		ctx.beginPath()
@@ -222,7 +222,7 @@ class Player {
 			"x": x + width,
 			"y": y + width
 		}
-		this.hp = 10
+		this.hp = 5
 	}
 	updateCorners() {
 		this.tlCorner = {
@@ -404,7 +404,7 @@ class Player {
 	}
 
 	resetHP() {
-		this.hp = 10
+		this.hp = 5
 	}
 
 	goTo(x, y) {
@@ -412,6 +412,7 @@ class Player {
 		this.y = y
 		this.updateCorners()
 	}
+
 }
 
 
@@ -533,6 +534,9 @@ const game = {
 	},
 
 	start: function() {
+		this.players[0].resetHP()
+		this.players[1].resetHP()
+		this.lives = 3
 		this.running = true
 		this.loadLevel(this.levels[0])
 		this.displayHP()
