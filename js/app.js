@@ -654,13 +654,25 @@ const game = {
 		this.levels.push(level)
 	},
 
-	click: function(target) {
-		if (target === "retry" && game.running) {
+	click: function($target) {
+		if ($target.hasClass("button")) {
+			this.clickAnimation($target)
+		}
+		if ($target.attr("id") === "retry" && game.running) {
 			this.loseLife()
-		} else if (target === "restart") {
+		} else if ($target.attr("id") === "restart") {
 			this.start()
 		}
 
+	},
+
+	clickAnimation: function($target) {
+		$target.animate({
+			opacity: .25
+		}, 100)
+		$target.animate({
+			opacity: 1
+		}, 100)
 	}
 
 }
@@ -683,5 +695,5 @@ $( document ).on("keyup", (event) => {
 })
 
 $( "#display" ).on("click", (event) => {
-	game.click($( event.target ).attr("id"))
+	game.click($( event.target ))
 })
