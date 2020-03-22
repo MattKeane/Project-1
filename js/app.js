@@ -60,8 +60,8 @@ class Wall extends Tile {
 		ctx.rect(this.x, this.y, 75, 75)
 		ctx.fillStyle = "rgb(100, 100, 100)"
 		ctx.fill()
-		ctx.rect(this.x, this.y, 75, 75)
-		ctx.lineWidth = 1
+		ctx.rect(this.x + 2, this.y + 2, 70, 70)
+		ctx.lineWidth = 3
 		ctx.strokeStyle = "black"
 		ctx.stroke()
 	}
@@ -76,6 +76,11 @@ class Goal extends Tile {
 		ctx.rect(this.x, this.y, 75, 75)
 		ctx.fillStyle = "gold"
 		ctx.fill()
+		ctx.beginPath()
+		ctx.fillStyle = "crimson"
+		ctx.font = "20px sans-serif"
+		ctx.textAlign = "center"
+		ctx.fillText("GOAL", this.x + 37, this.y + 39)
 	}
 }
 
@@ -91,7 +96,11 @@ class Button extends Tile {
 		ctx.fillStyle = "rgb(200, 200, 200)"
 		ctx.fill()
 		ctx.beginPath()
-		ctx.arc(this.x + 37, this.y +37, 35, 0, Math.PI * 2)
+		ctx.arc(this.x + 39, this.y + 39, 33, 0, Math.PI * 2)
+		ctx.fillStyle = "black"
+		ctx.fill()
+		ctx.beginPath()
+		ctx.arc(this.x + 35, this.y + 35, 33, 0, Math.PI * 2)
 		ctx.fillStyle = this.color
 		ctx.fill()
 	}
@@ -114,9 +123,9 @@ class Gate extends Tile {
 			ctx.fillStyle = ("rgb(200, 200, 200)")
 			ctx.fill()
 			ctx.beginPath()
-			ctx.rect(this.x, this.y, 75, 75)
+			ctx.rect(this.x + 2, this.y + 2, 72, 72)
 			ctx.strokeStyle = this.color
-			ctx.lineWidth = 2
+			ctx.lineWidth = 4
 			ctx.stroke()
 		} else {
 			ctx.beginPath()
@@ -124,16 +133,16 @@ class Gate extends Tile {
 			ctx.fillStyle = ("rgb(200, 200, 200)")
 			ctx.fill()
 			ctx.beginPath()
-			ctx.rect(this.x, this.y, 75, 75)
+			ctx.rect(this.x + 2, this.y + 2, 72, 72)
 			ctx.strokeStyle = this.color
-			ctx.lineWidth = 2
+			ctx.lineWidth = 4
 			ctx.stroke()
 			for (let i = 1; i < 4; i++) {
 				ctx.beginPath()
 				ctx.moveTo(this.x + i * 19, this.y)
 				ctx.lineTo(this.x + i * 19, this.y + 75)
 				ctx.strokeStyle = this.color
-				ctx.lineWidth = 2
+				ctx.lineWidth = 6
 				ctx.stroke()
 			}
 		}
@@ -593,6 +602,7 @@ const game = {
 		ctx.beginPath()
 		ctx.font = "40px sans-serif"
 		ctx.fillStyle = "rgb(0, 200, 0)"
+		ctx.textAlign = "center"
 		ctx.fillText("GAME OVER", 450, 300)
 	},
 
@@ -701,7 +711,7 @@ const game = {
 		ctx.font = "30px sans-serif"
 		ctx.textAlign = "center"
 		ctx.fillStyle = "rgb(0, 200, 0)"
-		ctx.fillText("Press Any Button to Begin", 450, 300)
+		ctx.fillText("Press Any Key to Begin", 450, 300)
 	}
 
 }
