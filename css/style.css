@@ -1,3 +1,15 @@
 #board {
 	border: 2px solid black;
+	margin: 20px;
+}
+
+#display {
+	height: 600px;
+	background: rgb(100, 100, 100);
+	padding: 10px;
+
+}
+
+#screen {
+	display: flex;
 }

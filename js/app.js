@@ -628,62 +628,14 @@ const game = {
 		this.clearBoard()
 		this.drawBoard()
 		this.drawPlayers()
+	},
+
+	addLevel: function(level) {
+		this.levels.push(level)
 	}
 
 }
 
-const testTiles = []
-testTiles.push(new Floor(0, 0))
-testTiles.push(new Lava(1, 0))
-for (let i = 2; i < 10; i++) {
-		testTiles.push(new Floor(i, 0))
-}
-testTiles.push(new Gate(10, 0, "green", 0))
-const goal1 = new Goal(11,0)
-testTiles.push(goal1)
-testTiles.push(new Floor(0, 1))
-for (let i = 1; i < 11; i++) {
-	testTiles.push(new Wall(i, 1))
-}
-	testTiles.push(new Floor(11, 1))
-for (let i = 1; i < 3; i++) {
-	for (let j = 0; j < 12; j++) {
-		testTiles.push(new Floor(j, i * 2))
-	}
-	testTiles.push(new Floor(0, i * 2 + 1))
-	for (let j = 1; j < 11; j++) {
-		testTiles.push(new Wall(j, i * 2 + 1))
-	}
-	testTiles.push(new Floor(11, i * 2 + 1))
-}
-for (let i = 0; i < 12; i++) {
-	testTiles.push(new Floor(i, 6))
-}
-testTiles.push(new Goal(0, 7))
-for (let i = 1; i < 11; i++) {
-	testTiles.push(new Wall(i, 7))
-}
-testTiles.push(new Button(11, 7, "green", 0))
-
-const testLevel = new Level(0, 0, 830, 530, testTiles, 0)
-
-game.levels.push(testLevel)
-
-const tiles2 = []
-
-tiles2.push(new Goal(0, 0))
-tiles2.push(new Goal(1, 0))
-for (let i = 2; i < 12; i++) {
-	tiles2.push(new Floor(i, 0))
-}
-for (let i = 1; i < 8; i++) {
-	for (let j = 0; j < 12; j ++) {
-		tiles2.push(new Floor(j, i))
-	}
-}
-
-const level2 = new Level(0, 0, 0, 530, tiles2, 0)
-game.levels.push(level2)
 
 
 $( document ).on("keydown", (event) => {
