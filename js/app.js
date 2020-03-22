@@ -276,6 +276,11 @@ class Player {
 		ctx.strokeStyle = "black"
 		ctx.lineWidth = 3
 		ctx.stroke()
+		ctx.beginPath()
+		ctx.rect(this.x, this.y, this.width, this.width)
+		ctx.strokeStyle = "black"
+		ctx.lineWidth = 3
+		ctx.stroke()
 	}
 	move(direction) {
 		if (!this.checkCollision(direction)) {
@@ -516,7 +521,18 @@ const game = {
 	checkForWin: function() {
 		if (this.players[0].onGoal() && this.players[1].onGoal()) {
 			if (++this.levelCount >= this.levels.length) {
-				alert("You win!")
+				this.stopTime()
+				ctx.beginPath()
+				ctx.rect(0, 0, 900, 600)
+				ctx.fillStyle = "black"
+				ctx.fill()
+				ctx.beginPath()
+				ctx.font = "40px sans-serif"
+				ctx.fillStyle = "rgb(0, 200, 0)"
+				ctx.textAlign = "center"
+				ctx.fillText("YOU WIN!", 450, 300)
+				this.running = false
+
 			} else {
 				this.loadLevel(this.levels[this.levelCount])
 			}
