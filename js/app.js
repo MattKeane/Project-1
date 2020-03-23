@@ -431,6 +431,8 @@ class Player {
 
 
 const game = {
+	gameOn: true,
+
 	levels: [],
 
 	levelCount: 0,
@@ -532,6 +534,7 @@ const game = {
 				ctx.textAlign = "center"
 				ctx.fillText("YOU WIN!", 450, 300)
 				this.running = false
+				this.gameOn = false
 
 			} else {
 				this.loadLevel(this.levels[this.levelCount])
@@ -620,6 +623,7 @@ const game = {
 		ctx.fillStyle = "rgb(0, 200, 0)"
 		ctx.textAlign = "center"
 		ctx.fillText("GAME OVER", 450, 300)
+		this.gameOn = false
 	},
 
 	displayLives: function() {
@@ -701,6 +705,7 @@ const game = {
 		} else if ($target.attr("id") === "restart") {
 			this.stopTime()
 			this.start()
+			this.gameOn = true
 		}
 
 	},
@@ -740,11 +745,13 @@ game.openingScreen()
 
 
 $( document ).on("keydown", (event) => {
-	if (!game.running) {
-		game.start()
+	if (game.gameOn) {
+		if (!game.running) {
+			game.start()
+		}
+		game.keysPressed[event.key] = true
+		game.move()
 	}
-	game.keysPressed[event.key] = true
-	game.move()
 })
 
 $( document ).on("keyup", (event) => {
